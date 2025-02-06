@@ -9,6 +9,22 @@
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
 
+    <!-- Added Telegram Ads Controller -->
+    <script>
+        window.addEventListener('load', function() {
+            window.TelegramAdsController = new TelegramAdsController();
+            window.TelegramAdsController.initialize({
+                pubId: "958913",
+                appId: "1367"
+            });
+
+            // Show banner after 3 seconds
+            setTimeout(function() {
+                TelegramAdsController.showBannerAd();
+            }, 3000);
+        });
+    </script>
+
     <!-- Existing meta tags -->
     <meta name="generator" content="Scirra Construct">
     <meta name="author" content="Paradine">
@@ -43,22 +59,6 @@
             <p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
         </div>
     </noscript>
-
-    <!-- Added Telegram Ads Controller -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            window.TelegramAdsController = new TelegramAdsController();
-            window.TelegramAdsController.initialize({
-                pubId: "958913",
-                appId: "1367"
-            });
-
-            // Show banner after 3 seconds
-            setTimeout(function() {
-                TelegramAdsController.showBannerAd();
-            }, 3000);
-        });
-    </script>
 
     <!-- Existing scripts -->
     <script src="scripts/modernjscheck.js"></script>
