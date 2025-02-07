@@ -43,17 +43,44 @@
                     const adContent = window.TelegramAdsController.getAdContent(); // Пример метода SDK Rich
 
                     if (adContent) {
-                        // Создание элемента для рекламы
-                        const adElement = document.createElement('div');
-                        adElement.id = 'ad-container';
-                        adElement.innerHTML = `
-                            <a href="${adContent.link}" target="_blank">
-                                <img src="${adContent.image}" alt="Рекламный баннер" style="width: 100%; height: auto;">
-                            </a>
-                        `;
+                        // Создание контейнера для рекламы
+                        const adContainer = document.createElement('div');
+                        adContainer.id = 'ad-container';
 
-                        // Добавление рекламы в DOM
-                        document.body.appendChild(adElement);
+                        // Проверка, является ли реклама видео или другим медиа
+                        if (adContent.mediaType === 'video') {
+                            // Если реклама — видео, создаём элемент <video>
+                            const videoElement = document.createElement('video');
+                            videoElement.src = adContent.mediaUrl;
+                            videoElement.autoplay = true; // Автоматическое воспроизведение
+                            videoElement.controls = false; // Скрыть элементы управления
+                            videoElement.muted = true; // Без звука (автовоспроизведение требует muted)
+                            videoElement.loop = false; // Не зацикливать
+                            videoElement.style.width = '100%';
+                            videoElement.style.height = 'auto';
+
+                            adContainer.appendChild(videoElement);
+                        } else if (adContent.mediaType === 'iframe') {
+                            // Если реклама — iframe, создаём элемент <iframe>
+                            const iframeElement = document.createElement('iframe');
+                            iframeElement.src = adContent.mediaUrl;
+                            iframeElement.style.width = '100%';
+                            iframeElement.style.height = '100%';
+                            iframeElement.frameBorder = '0';
+                            iframeElement.allow = 'autoplay'; // Разрешить автовоспроизведение
+
+                            adContainer.appendChild(iframeElement);
+                        } else {
+                            // Если реклама — изображение или другой контент
+                            adContainer.innerHTML = `
+                                <a href="${adContent.link}" target="_blank">
+                                    <img src="${adContent.image}" alt="Рекламный баннер" style="width: 100%; height: auto;">
+                                </a>
+                            `;
+                        }
+
+                        // Добавление рекламного контейнера в DOM
+                        document.body.appendChild(adContainer);
                         console.log("Реклама успешно загружена и отображена!");
                     } else {
                         console.log("Рекламный контент ещё не загружен. Повторная проверка через 1 секунду...");
@@ -76,12 +103,22 @@
             bottom: 0;
             left: 0;
             width: 100%;
+            height: 150px; /* Высота контейнера для рекламы */
             background-color: black;
             color: white;
             text-align: center;
-            padding: 10px;
             z-index: 1000; /* Реклама поверх всех элементов */
-            display: block; /* Показать рекламу по умолчанию */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Скрыть всё, что выходит за пределы контейнера */
+        }
+
+        #ad-container video,
+        #ad-container iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Масштабирование видео/изображения */
         }
     </style>
 </head>
