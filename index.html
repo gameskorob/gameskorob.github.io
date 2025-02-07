@@ -41,7 +41,12 @@
                 setTimeout(function() {
                     // Использование SDK Rich для вставки рекламы в контейнер #banner
                     const banner = document.getElementById('banner');
-                    window.TelegramAdsController.showAd(banner); // Пример метода SDK Rich для показа рекламы
+                    if (window.TelegramAdsController.showAd) {
+                        window.TelegramAdsController.showAd(banner); // Показ рекламы в контейнере
+                    } else {
+                        console.error("Метод showAd не найден в SDK Rich!");
+                        banner.innerHTML = "Рекламный контент недоступен.";
+                    }
                 }, 1000); // Задержка 1 секунда
             } else {
                 console.error("Скрипт Telegram Ads Controller не загрузился!");
