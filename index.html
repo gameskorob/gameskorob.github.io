@@ -5,72 +5,75 @@
     <title>Angry Checkers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     
-    <!-- Подключение скриптов Telegram -->
-    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-    <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
-
-    <!-- Инициализация Telegram Ads Controller -->
-    <script>
-        // Инициализация при загрузке страницы
-        document.addEventListener('DOMContentLoaded', function() {
-            // Инициализация Telegram Web App
-            window.Telegram.WebApp.ready();
-
-            // Инициализация рекламы
-            window.TelegramAdsController = new TelegramAdsController();
-            window.TelegramAdsController.initialize({
-                pubId: "958913",
-                appId: "1380"
-            });
-
-            // Показ баннера через 3 секунды
-            setTimeout(function() {
-                TelegramAdsController.showBannerAd();
-            }, 3000);
-        });
-    </script>
-
-    <!-- Существующие мета-теги -->
+    <!-- Made with Construct, the game and app creator :: https://www.construct.net -->
     <meta name="generator" content="Scirra Construct">
     <meta name="author" content="Paradine">
+
     <link rel="manifest" href="appmanifest.json">
     <link rel="stylesheet" href="style.css">
 
-    <!-- Стили для позиционирования рекламы -->
+    <!-- Ваши скрипты -->
+    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+    <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                window.TelegramAdsController = new TelegramAdsController();
+                window.TelegramAdsController.initialize({
+                    pubId: "958913",
+                    appId: "1380",
+                });
+            }, 2000); // Задержка в 2 секунды
+        });
+    </script>
+
+    <!-- Стили для баннера -->
     <style>
-        .telegram-ad-container {
+        #banner {
             position: fixed;
-            z-index: 9999;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: white;
+            background-color: black;
+            color: white;
             text-align: center;
+            padding: 10px;
+            z-index: 1000; /* Чтобы баннер был поверх всех элементов */
+            display: none; /* Скрываем баннер до показа */
         }
     </style>
 </head>
 
 <body>
-    <!-- Предупреждение при запуске через file:// -->
-    <script>
-    if (location.protocol.substr(0, 4) === "file") {
-        alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
-    }
-    </script>
+    <div id="banner">
+        <!-- Здесь будет ваш баннер -->
+        Рекламный баннер
+    </div>
 
-    <!-- Сообщение, если JavaScript отключен -->
+    <script>
+        if (location.protocol.substr(0, 4) === "file") {
+            alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
+        }
+    </script>
+    
     <noscript>
         <div id="notSupportedWrap">
             <h2 id="notSupportedTitle">This content requires JavaScript</h2>
             <p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
         </div>
     </noscript>
-
-    <!-- Существующие скрипты -->
     <script src="scripts/modernjscheck.js"></script>
     <script src="scripts/supportcheck.js"></script>
     <script src="scripts/offlineclient.js" type="module"></script>
     <script src="scripts/main.js" type="module"></script>
     <script src="scripts/register-sw.js" type="module"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                document.getElementById('banner').style.display = 'block'; // Показываем баннер через 2 секунды
+            }, 2000);
+        });
+    </script>
 </body>
 </html>
