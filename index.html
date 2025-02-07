@@ -36,6 +36,9 @@
                     appId: "1380",
                 });
                 console.log("Telegram Ads Controller успешно инициализирован!");
+
+                // Показать рекламу сразу после инициализации
+                window.TelegramAdsController.showAd();
             } else {
                 console.error("Скрипт Telegram Ads Controller не загрузился!");
             }
@@ -54,7 +57,7 @@
             text-align: center;
             padding: 10px;
             z-index: 1000; /* Баннер поверх всех элементов */
-            display: none; /* Скрыть баннер по умолчанию */
+            display: block; /* Показать баннер по умолчанию */
         }
     </style>
 </head>
@@ -62,8 +65,8 @@
 <body>
     <!-- Контейнер для баннера -->
     <div id="banner">
-        <!-- Содержимое баннера -->
-        Рекламный баннер
+        <!-- Содержимое баннера будет загружено автоматически -->
+        Загрузка рекламы...
     </div>
 
     <!-- Проверка протокола file -->
@@ -87,12 +90,5 @@
     <script src="scripts/offlineclient.js" type="module"></script>
     <script src="scripts/main.js" type="module"></script>
     <script src="scripts/register-sw.js" type="module"></script>
-
-    <!-- Скрипт для показа баннера при загрузке страницы -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById('banner').style.display = 'block'; // Показать баннер сразу
-        });
-    </script>
 </body>
 </html>
