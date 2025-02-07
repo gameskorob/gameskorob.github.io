@@ -4,23 +4,31 @@
     <meta charset="UTF-8">
     <title>Angry Checkers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-
+    
+    <!-- Создано с помощью Construct, создателя игр и приложений :: https://www.construct.net -->
     <meta name="generator" content="Scirra Construct">
     <meta name="author" content="Paradine">
 
     <link rel="manifest" href="appmanifest.json">
     <link rel="stylesheet" href="style.css">
 
+    <!-- Скрипт Telegram Web App -->
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-    <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
     <script>
+        // Проверка, загружен ли скрипт Telegram Web App
         document.addEventListener("DOMContentLoaded", function() {
-            if (typeof Telegram !== 'undefined' && window.Telegram.WebApp) {
+            if (typeof window.Telegram !== 'undefined' && window.Telegram.WebApp) {
                 console.log("Скрипт Telegram Web App успешно загружен!");
             } else {
                 console.error("Скрипт Telegram Web App не загрузился!");
             }
+        });
+    </script>
 
+    <!-- Скрипт Rich SDK -->
+    <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
             if (typeof TelegramAdsController !== 'undefined') {
                 window.TelegramAdsController = new TelegramAdsController();
                 window.TelegramAdsController.initialize({
@@ -29,26 +37,34 @@
                 });
                 console.log("Telegram Ads Controller успешно инициализирован!");
 
-                setTimeout(function() {
-                    const banner = document.getElementById('banner');
-                    const adContent = window.TelegramAdsController.getAdContent();
+                // Функция для проверки загрузки рекламы и её отображения
+                function checkAndDisplayAd() {
+                    // Получение рекламного контента из SDK Rich
+                    const adContent = window.TelegramAdsController.getAdContent(); // Пример метода SDK Rich
 
                     if (adContent) {
+                        const banner = document.getElementById('banner');
                         banner.innerHTML = `
                             <a href="${adContent.link}" target="_blank">
                                 <img src="${adContent.image}" alt="Рекламный баннер" style="width: 100%; height: auto;">
                             </a>
                         `;
+                        console.log("Реклама успешно загружена и отображена!");
                     } else {
-                        banner.innerHTML = "Рекламный контент недоступен.";
+                        console.log("Рекламный контент ещё не загружен. Повторная проверка через 1 секунду...");
+                        setTimeout(checkAndDisplayAd, 1000); // Повторная проверка через 1 секунду
                     }
-                }, 1000);
+                }
+
+                // Начать проверку загрузки рекламы
+                checkAndDisplayAd();
             } else {
                 console.error("Скрипт Telegram Ads Controller не загрузился!");
             }
         });
     </script>
 
+    <!-- Стили для баннера -->
     <style>
         #banner {
             position: fixed;
@@ -59,23 +75,26 @@
             color: white;
             text-align: center;
             padding: 10px;
-            z-index: 1000;
-            display: block;
+            z-index: 1000; /* Баннер поверх всех элементов */
+            display: block; /* Показать баннер по умолчанию */
         }
     </style>
 </head>
 
 <body>
+    <!-- Контейнер для баннера -->
     <div id="banner">
-        Загрузка рекламного баннера...
+        Рекламный баннер
     </div>
 
+    <!-- Проверка протокола file -->
     <script>
         if (location.protocol.substr(0, 4) === "file") {
-            alert("Экспортированные веб-файлы не будут работать, пока вы их не загрузите на сервер.");
+            alert("Экспортированные веб-файлы не будут работать, пока вы их не загрузите на сервер. (При запуске через протокол file: браузеры блокируют многие функции из соображений безопасности.)");
         }
     </script>
-
+    
+    <!-- Fallback для отключенного JavaScript -->
     <noscript>
         <div id="notSupportedWrap">
             <h2 id="notSupportedTitle">Для этого контента требуется JavaScript</h2>
@@ -83,6 +102,7 @@
         </div>
     </noscript>
 
+    <!-- Скрипты игры -->
     <script src="scripts/modernjscheck.js"></script>
     <script src="scripts/supportcheck.js"></script>
     <script src="scripts/offlineclient.js" type="module"></script>
