@@ -25,13 +25,15 @@
     <!-- Стили для рекламного блока -->
     <style>
         #ad-container {
-            position: fixed;
-            bottom: 0;
+            position: fixed; /* Фиксированное позиционирование */
+            bottom: 0; /* Размещаем внизу страницы */
             left: 0;
-            width: 100%;
-            background-color: black;
-            z-index: 1000; /* Убедитесь, что реклама поверх всех слоев */
+            width: 100%; /* На всю ширину страницы */
+            background-color: #333; /* Темно-серый фон */
+            z-index: 1000; /* Поверх всех слоев */
             display: none; /* Скрываем рекламу до момента показа */
+            padding: 10px; /* Отступы для красоты */
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3); /* Тень для выделения */
         }
         #ad-container iframe {
             width: 100%;
