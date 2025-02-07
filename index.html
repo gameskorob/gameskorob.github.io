@@ -11,6 +11,7 @@
     <meta name="author" content="Paradine">
 
     <link rel="manifest" href="appmanifest.json">
+
     <link rel="stylesheet" href="style.css">
 
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
@@ -22,7 +23,6 @@
         });
     </script>
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-
     <style>
         #banner {
             position: fixed;
@@ -34,40 +34,35 @@
             text-align: center;
             padding: 20px;
             z-index: 1000; /* Задает приоритет наложения */
-            display: none; /* Скрыть баннер при загрузке */
+            display: block; /* Сразу отображаем баннер */
         }
     </style>
+
 </head> 
 
 <body>
-    <script>
-    if (location.protocol.substr(0, 4) === "file")
-    {
-        alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
-    }
-    </script>
-    
-    <noscript>
-        <div id="notSupportedWrap">
-            <h2 id="notSupportedTitle">This content requires JavaScript</h2>
-            <p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
-        </div>
-    </noscript>
-    
-    <script src="scripts/modernjscheck.js"></script>
-    <script src="scripts/supportcheck.js"></script>
-    <script src="scripts/offlineclient.js" type="module"></script>
-    <script src="scripts/main.js" type="module"></script>
-    <script src="scripts/register-sw.js" type="module"></script>
-    
-    <!-- Баннер -->
-    <div id="banner">Это баннер, который отображается снизу страницы!</div>
 
-    <script>
-        // Показать баннер при загрузке страницы
-        window.onload = function() {
-            document.getElementById('banner').style.display = 'block';
-        };
-    </script>
+<script>
+if (location.protocol.substr(0, 4) === "file")
+{
+    alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
+}
+</script>
+
+<noscript>
+    <div id="notSupportedWrap">
+        <h2 id="notSupportedTitle">This content requires JavaScript</h2>
+        <p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
+    </div>
+</noscript>
+<script src="scripts/modernjscheck.js"></script>
+<script src="scripts/supportcheck.js"></script>
+<script src="scripts/offlineclient.js" type="module"></script>
+<script src="scripts/main.js" type="module"></script>
+<script src="scripts/register-sw.js" type="module"></script>
+
+<!-- Баннер -->
+<div id="banner">Это баннер, который отображается снизу страницы!</div>
+
 </body> 
 </html>
