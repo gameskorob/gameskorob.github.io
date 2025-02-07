@@ -39,19 +39,9 @@
 
                 // Показать рекламу через 1 секунду
                 setTimeout(function() {
-                    // Получение рекламного контента из SDK Rich
+                    // Использование SDK Rich для вставки рекламы в контейнер #banner
                     const banner = document.getElementById('banner');
-                    const adContent = window.TelegramAdsController.getAdContent(); // Пример метода SDK Rich
-
-                    if (adContent) {
-                        banner.innerHTML = `
-                            <a href="${adContent.link}" target="_blank">
-                                <img src="${adContent.image}" alt="Рекламный баннер" style="width: 100%; height: auto;">
-                            </a>
-                        `;
-                    } else {
-                        banner.innerHTML = "Рекламный контент недоступен.";
-                    }
+                    window.TelegramAdsController.showAd(banner); // Пример метода SDK Rich для показа рекламы
                 }, 1000); // Задержка 1 секунда
             } else {
                 console.error("Скрипт Telegram Ads Controller не загрузился!");
@@ -79,7 +69,7 @@
 <body>
     <!-- Контейнер для баннера -->
     <div id="banner">
-        Рекламный баннер
+        <!-- Содержимое баннера будет управляться SDK Rich -->
     </div>
 
     <!-- Проверка протокола file -->
