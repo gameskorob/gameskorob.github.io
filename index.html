@@ -5,33 +5,17 @@
     <title>Angry Checkers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     
-    <!-- Added Telegram scripts -->
+    <!-- Добавлены скрипты Telegram -->
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
 
-    <!-- Added Telegram Ads Controller -->
-    <script>
-        window.addEventListener('load', function() {
-            window.TelegramAdsController = new TelegramAdsController();
-            window.TelegramAdsController.initialize({
-                pubId: "958913",
-                appId: "1367"
-            });
-
-            // Show banner after 3 seconds
-            setTimeout(function() {
-                TelegramAdsController.showBannerAd();
-            }, 3000);
-        });
-    </script>
-
-    <!-- Existing meta tags -->
+    <!-- Существующие мета-теги -->
     <meta name="generator" content="Scirra Construct">
     <meta name="author" content="Paradine">
     <link rel="manifest" href="appmanifest.json">
     <link rel="stylesheet" href="style.css">
 
-    <!-- Style for ad positioning -->
+    <!-- Стили для позиционирования рекламы -->
     <style>
         .telegram-ad-container {
             position: fixed;
@@ -46,7 +30,7 @@
 </head>
 
 <body>
-    <!-- Existing scripts and content -->
+    <!-- Существующие скрипты и контент -->
     <script>
     if (location.protocol.substr(0, 4) === "file") {
         alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
@@ -60,7 +44,23 @@
         </div>
     </noscript>
 
-    <!-- Existing scripts -->
+    <!-- Обновленный скрипт для инициализации рекламы -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            window.TelegramAdsController = new TelegramAdsController();
+            window.TelegramAdsController.initialize({
+                pubId: "958913",
+                appId: "1380"  // Исправлено на appId: "1380"
+            });
+
+            // Показ баннера через 3 секунды
+            setTimeout(function() {
+                TelegramAdsController.showBannerAd();
+            }, 3000);
+        });
+    </script>
+
+    <!-- Существующие скрипты -->
     <script src="scripts/modernjscheck.js"></script>
     <script src="scripts/supportcheck.js"></script>
     <script src="scripts/offlineclient.js" type="module"></script>
