@@ -5,54 +5,24 @@
     <title>Angry Checkers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     
-    <!-- Создано с помощью Construct, создателя игр и приложений :: https://www.construct.net -->
+    <!-- Made with Construct, the game and app creator :: https://www.construct.net -->
     <meta name="generator" content="Scirra Construct">
+
     <meta name="author" content="Paradine">
 
     <link rel="manifest" href="appmanifest.json">
     <link rel="stylesheet" href="style.css">
 
-    <!-- Скрипт Telegram Web App -->
-    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-    <script>
-        // Проверка, загружен ли скрипт Telegram Web App
-        document.addEventListener("DOMContentLoaded", function() {
-            if (typeof window.Telegram !== 'undefined' && window.Telegram.WebApp) {
-                console.log("Скрипт Telegram Web App успешно загружен!");
-            } else {
-                console.error("Скрипт Telegram Web App не загрузился!");
-            }
-        });
-    </script>
-
-    <!-- Скрипт Rich Partners -->
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            if (typeof TelegramAdsController !== 'undefined') {
-                window.TelegramAdsController = new TelegramAdsController();
-                window.TelegramAdsController.initialize({
-                    pubId: "958913",
-                    appId: "1380",
-                });
-                console.log("Telegram Ads Controller успешно инициализирован!");
-
-                // Показать рекламу через 1 секунду
-                setTimeout(function() {
-                    const banner = document.getElementById('banner');
-                    banner.innerHTML = `
-                        <a href="https://example.com" target="_blank">
-                            <img src="https://example.com/ad-banner.jpg" alt="Рекламный баннер" style="width: 100%; height: auto;">
-                        </a>
-                    `;
-                }, 1000); // Задержка 1 секунда
-            } else {
-                console.error("Скрипт Telegram Ads Controller не загрузился!");
-            }
+        window.TelegramAdsController = new TelegramAdsController();
+        window.TelegramAdsController.initialize({
+            pubId: "958913",
+            appId: "1380",
         });
     </script>
+    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
 
-    <!-- Стили для баннера -->
     <style>
         #banner {
             position: fixed;
@@ -62,39 +32,42 @@
             background-color: black;
             color: white;
             text-align: center;
-            padding: 10px;
-            z-index: 1000; /* Баннер поверх всех элементов */
-            display: block; /* Показать баннер по умолчанию */
+            padding: 20px;
+            z-index: 1000; /* Задает приоритет наложения */
+            display: none; /* Скрыть баннер при загрузке */
         }
     </style>
-</head>
+</head> 
 
 <body>
-    <!-- Контейнер для баннера -->
-    <div id="banner">
-        Рекламный баннер
-    </div>
-
-    <!-- Проверка протокола file -->
     <script>
-        if (location.protocol.substr(0, 4) === "file") {
-            alert("Экспортированные веб-файлы не будут работать, пока вы их не загрузите на сервер. (При запуске через протокол file: браузеры блокируют многие функции из соображений безопасности.)");
-        }
+    if (location.protocol.substr(0, 4) === "file")
+    {
+        alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
+    }
     </script>
     
-    <!-- Fallback для отключенного JavaScript -->
     <noscript>
         <div id="notSupportedWrap">
-            <h2 id="notSupportedTitle">Для этого контента требуется JavaScript</h2>
-            <p class="notSupportedMessage">JavaScript отключен. Пожалуйста, включите его для просмотра этого контента.</p>
+            <h2 id="notSupportedTitle">This content requires JavaScript</h2>
+            <p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
         </div>
     </noscript>
-
-    <!-- Скрипты игры -->
+    
     <script src="scripts/modernjscheck.js"></script>
     <script src="scripts/supportcheck.js"></script>
     <script src="scripts/offlineclient.js" type="module"></script>
     <script src="scripts/main.js" type="module"></script>
     <script src="scripts/register-sw.js" type="module"></script>
-</body>
+    
+    <!-- Баннер -->
+    <div id="banner">Это баннер, который отображается снизу страницы!</div>
+
+    <script>
+        // Показать баннер при загрузке страницы
+        window.onload = function() {
+            document.getElementById('banner').style.display = 'block';
+        };
+    </script>
+</body> 
 </html>
