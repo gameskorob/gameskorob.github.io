@@ -29,18 +29,16 @@
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(function() {
-                if (typeof TelegramAdsController !== 'undefined') {
-                    window.TelegramAdsController = new TelegramAdsController();
-                    window.TelegramAdsController.initialize({
-                        pubId: "958913",
-                        appId: "1380",
-                    });
-                    console.log("Telegram Ads Controller успешно инициализирован!");
-                } else {
-                    console.error("Скрипт Telegram Ads Controller не загрузился!");
-                }
-            }, 2000); // Задержка 2 секунды
+            if (typeof TelegramAdsController !== 'undefined') {
+                window.TelegramAdsController = new TelegramAdsController();
+                window.TelegramAdsController.initialize({
+                    pubId: "958913",
+                    appId: "1380",
+                });
+                console.log("Telegram Ads Controller успешно инициализирован!");
+            } else {
+                console.error("Скрипт Telegram Ads Controller не загрузился!");
+            }
         });
     </script>
 
@@ -90,12 +88,10 @@
     <script src="scripts/main.js" type="module"></script>
     <script src="scripts/register-sw.js" type="module"></script>
 
-    <!-- Скрипт для показа баннера через 2 секунды -->
+    <!-- Скрипт для показа баннера при загрузке страницы -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(function() {
-                document.getElementById('banner').style.display = 'block'; // Показать баннер через 2 секунды
-            }, 2000);
+            document.getElementById('banner').style.display = 'block'; // Показать баннер сразу
         });
     </script>
 </body>
