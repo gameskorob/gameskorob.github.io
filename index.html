@@ -39,6 +39,14 @@
 
                 // Показать рекламу сразу после инициализации
                 window.TelegramAdsController.showAd();
+
+                // Вставка реального рекламного контента
+                const banner = document.getElementById('banner');
+                banner.innerHTML = `
+                    <a href="https://example.com" target="_blank">
+                        <img src="https://example.com/ad-banner.jpg" alt="Рекламный баннер" style="width: 100%; height: auto;">
+                    </a>
+                `;
             } else {
                 console.error("Скрипт Telegram Ads Controller не загрузился!");
             }
@@ -65,8 +73,7 @@
 <body>
     <!-- Контейнер для баннера -->
     <div id="banner">
-        <!-- Содержимое баннера будет загружено автоматически -->
-        Загрузка рекламы...
+        <!-- Содержимое баннера будет заменено на реальный рекламный контент -->
     </div>
 
     <!-- Проверка протокола file -->
