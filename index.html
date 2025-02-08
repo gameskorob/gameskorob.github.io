@@ -5,146 +5,84 @@
     <title>Angry Checkers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     
-    <!-- Создано с помощью Construct, создателя игр и приложений :: https://www.construct.net -->
+    <!-- Made with Construct, the game and app creator :: https://www.construct.net -->
     <meta name="generator" content="Scirra Construct">
     <meta name="author" content="Paradine">
 
     <link rel="manifest" href="appmanifest.json">
     <link rel="stylesheet" href="style.css">
-
-    <!-- Скрипт Telegram Web App -->
+    
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-    <script>
-        // Проверка, загружен ли скрипт Telegram Web App
-        document.addEventListener("DOMContentLoaded", function() {
-            if (typeof window.Telegram !== 'undefined' && window.Telegram.WebApp) {
-                console.log("Скрипт Telegram Web App успешно загружен!");
-            } else {
-                console.error("Скрипт Telegram Web App не загрузился!");
-            }
-        });
-    </script>
-
-    <!-- Скрипт Rich SDK -->
-    <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            if (typeof TelegramAdsController !== 'undefined') {
-                window.TelegramAdsController = new TelegramAdsController();
-                window.TelegramAdsController.initialize({
-                    pubId: "958913",
-                    appId: "1380",
-                });
-                console.log("Telegram Ads Controller успешно инициализирован!");
-
-                // Функция для проверки загрузки рекламы и её отображения
-                function checkAndDisplayAd() {
-                    // Получение рекламного контента из SDK Rich
-                    const adContent = window.TelegramAdsController.getAdContent(); // Пример метода SDK Rich
-
-                    if (adContent) {
-                        const banner = document.getElementById('banner');
-                        banner.innerHTML = `
-                            <a href="${adContent.link}" target="_blank">
-                                <img src="${adContent.image}" alt="Рекламный баннер" style="width: 100%; height: auto;">
-                            </a>
-                        `;
-                        console.log("Реклама успешно загружена и отображена!");
-
-                        // Сделать текст "Рекламный баннер" прозрачным
-                        const bannerText = document.getElementById('banner-text');
-                        if (bannerText) {
-                            bannerText.style.opacity = '0'; // Прозрачность текста
-                            console.log("Текст 'Рекламный баннер' сделан прозрачным.");
-                        }
-                    } else {
-                        console.log("Рекламный контент ещё не загружен. Повторная проверка через 2 секунды...");
-                        setTimeout(checkAndDisplayAd, 2000); // Повторная проверка через 2 секунды
-                    }
-                }
-
-                // Начать проверку загрузки рекламы
-                checkAndDisplayAd();
-            } else {
-                console.error("Скрипт Telegram Ads Controller не загрузился!");
-            }
-        });
-    </script>
-
-    <!-- Стили для баннера -->
+    
     <style>
-        #banner {
+        /* Стили для рекламы */
+        #tads-container-308 {
             position: fixed;
+            width: 100%;
+            height: 100px;
             bottom: 0;
             left: 0;
-            width: 100%;
-            background-color: black;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            z-index: 1000; /* Баннер поверх всех элементов */
-            display: block; /* Показать баннер по умолчанию */
+            z-index: 999;
+            background-color: black; /* Фон под баннером черный */
+            display: none; /* Скрыть по умолчанию */
         }
 
-        #banner-text {
-            transition: opacity 0.5s ease; /* Плавное изменение прозрачности */
+        /* Стили для контейнера игры */
+        #game-container {
+            position: relative; /* Добавляем относительное позиционирование для наложения */
+            z-index: 1; /* Устанавливаем z-index ниже, чем у контейнера рекламы */
         }
     </style>
+
 </head>
 
 <body>
-    <!-- Контейнер для баннера -->
-    <div id="banner">
-        <span id="banner-text">Рекламный баннер</span>
-    </div>
-
-    <!-- Скрипт для имитации нажатия через 3 секунды и повторения каждые 2 секунды -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const bannerText = document.getElementById('banner-text');
-
-            function simulateClick() {
-                if (bannerText) {
-                    bannerText.click(); // Имитация нажатия
-                    console.log("Имитация нажатия на текст 'Рекламный баннер' выполнена!");
-                }
-            }
-
-            // Первое нажатие через 3 секунды
-            setTimeout(simulateClick, 3000);
-
-            // Повторное нажатие каждые 2 секунды, если реклама не загружена
-            const clickInterval = setInterval(function() {
-                const adContent = window.TelegramAdsController?.getAdContent();
-                if (!adContent) {
-                    simulateClick();
-                } else {
-                    clearInterval(clickInterval); // Остановить интервал, если реклама загружена
-                }
-            }, 2000);
-        });
-    </script>
-
-    <!-- Проверка протокола file -->
     <script>
         if (location.protocol.substr(0, 4) === "file") {
-            alert("Экспортированные веб-файлы не будут работать, пока вы их не загрузите на сервер. (При запуске через протокол file: браузеры блокируют многие функции из соображений безопасности.)");
+            alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
         }
     </script>
     
-    <!-- Fallback для отключенного JavaScript -->
     <noscript>
         <div id="notSupportedWrap">
-            <h2 id="notSupportedTitle">Для этого контента требуется JavaScript</h2>
-            <p class="notSupportedMessage">JavaScript отключен. Пожалуйста, включите его для просмотра этого контента.</p>
+            <h2 id="notSupportedTitle">This content requires JavaScript</h2>
+            <p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
         </div>
     </noscript>
+    
+    <div id="game-container">
+        <!-- Здесь размещается ваш контент игры -->
+    </div>
+    
+    <!-- Контейнер рекламы -->
+    <div id="tads-container-308"></div>
 
-    <!-- Скрипты игры -->
     <script src="scripts/modernjscheck.js"></script>
     <script src="scripts/supportcheck.js"></script>
     <script src="scripts/offlineclient.js" type="module"></script>
     <script src="scripts/main.js" type="module"></script>
     <script src="scripts/register-sw.js" type="module"></script>
+    
+    <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
+    <script>
+        window.TelegramAdsController = new TelegramAdsController();
+        window.TelegramAdsController.initialize({
+            pubId: "958913",
+            appId: "1380",
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const adContainer = document.getElementById('tads-container-308');
+
+            function loadAndShowAd() {
+                adContainer.style.display = 'block'; // Показать рекламу
+                // Здесь можно добавить логику показа рекламы, если есть
+            }
+
+            // Загрузить рекламу через 6 секунд
+            setTimeout(loadAndShowAd, 6000);
+        });
+    </script>
+
 </body>
 </html>
