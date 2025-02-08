@@ -5,14 +5,17 @@
     <title>Angry Checkers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     
-    <!-- Made with Construct, the game and app creator :: https://www.construct.net -->
+    <!-- Сделано с помощью Construct, создателя игр и приложений :: https://www.construct.net -->
     <meta name="generator" content="Scirra Construct">
     <meta name="author" content="Paradine">
 
     <link rel="manifest" href="appmanifest.json">
     <link rel="stylesheet" href="style.css">
 
+    <!-- Скрипт Telegram Web App -->
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+    
+    <!-- Скрипт Rich -->
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
     <script>
         window.TelegramAdsController = new TelegramAdsController();
@@ -22,65 +25,72 @@
         });
     </script>
 
+    <!-- Стили для баннера рекламы -->
     <style>
-        /* Стили для рекламы */
-        #tads-container-308 {
+        #banner {
             position: fixed;
-            width: 100%;
-            height: 100px;
             bottom: 0;
             left: 0;
-            z-index: 999;
-            background-color: black; /* Фон под баннером черный */
-            display: none; /* Скрыть по умолчанию */
-        }
-
-        /* Стили для контейнера игры */
-        #game-container {
-            position: relative; /* Добавляем относительное позиционирование для наложения */
-            z-index: 1; /* Устанавливаем z-index ниже, чем у контейнера рекламы */
+            width: 100%;
+            background-color: #333; /* Темно-серый фон */
+            color: white;
+            text-align: center;
+            padding: 10px;
+            z-index: 1000; /* Баннер поверх всех элементов */
+            display: none; /* Скрыть баннер изначально */
         }
     </style>
+
+    <script>
+        // Функция для показа рекламы
+        function showAd() {
+            const banner = document.getElementById('banner');
+            const adContent = window.TelegramAdsController.getAdContent(); // Получение рекламного контента
+
+            if (adContent) {
+                banner.innerHTML = `
+                    <a href="${adContent.link}" target="_blank">
+                        <img src="${adContent.image}" alt="Рекламный баннер" style="width: 100%; height: auto;">
+                    </a>
+                `;
+                banner.style.display = 'block'; // Показать баннер
+            } else {
+                banner.innerHTML = "Рекламный контент недоступен.";
+                banner.style.display = 'block'; // Показать баннер даже если контент недоступен
+            }
+        }
+
+        // Подождите 1 секунду перед показом рекламы
+        setTimeout(showAd, 1000);
+    </script>
 </head>
+
 <body>
+    <!-- Контейнер для баннера -->
+    <div id="banner">
+        Загрузка рекламного баннера...
+    </div>
+
+    <!-- Проверка протокола file -->
     <script>
         if (location.protocol.substr(0, 4) === "file") {
-            alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
+            alert("Экспортированные веб-файлы не будут работать, пока вы их не загрузите на сервер. (При запуске через протокол file: браузеры блокируют многие функции из соображений безопасности.)");
         }
     </script>
 
+    <!-- Fallback для отключенного JavaScript -->
     <noscript>
         <div id="notSupportedWrap">
-            <h2 id="notSupportedTitle">This content requires JavaScript</h2>
-            <p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
+            <h2 id="notSupportedTitle">Для этого контента требуется JavaScript</h2>
+            <p class="notSupportedMessage">JavaScript отключен. Пожалуйста, включите его для просмотра этого контента.</p>
         </div>
     </noscript>
 
-    <div id="game-container">
-        <!-- Здесь размещается ваш контент игры -->
-    </div>
-
-    <!-- Контейнер рекламы -->
-    <div id="tads-container-308"></div>
-
+    <!-- Скрипты игры -->
     <script src="scripts/modernjscheck.js"></script>
     <script src="scripts/supportcheck.js"></script>
     <script src="scripts/offlineclient.js" type="module"></script>
     <script src="scripts/main.js" type="module"></script>
     <script src="scripts/register-sw.js" type="module"></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const adContainer = document.getElementById('tads-container-308');
-
-            function loadAndShowAd() {
-                adContainer.style.display = 'block'; // Показать рекламу
-                adContainer.click(); // Имитируем клик по рекламе
-            }
-
-            // Загружаем и показываем рекламу сразу после загрузки страницы
-            loadAndShowAd();
-        });
-    </script>
 </body>
 </html>
