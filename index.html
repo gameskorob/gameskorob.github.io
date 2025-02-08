@@ -37,7 +37,7 @@
 
         /* Стили для контейнера игры */
         #game-container {
-            position: relative;
+            position: relative; /* Добавляем относительное позиционирование для наложения */
             z-index: 1; /* Устанавливаем z-index ниже, чем у контейнера рекламы */
         }
     </style>
@@ -48,7 +48,7 @@
             alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
         }
     </script>
-    
+
     <noscript>
         <div id="notSupportedWrap">
             <h2 id="notSupportedTitle">This content requires JavaScript</h2>
@@ -75,7 +75,7 @@
 
             function loadAndShowAd() {
                 adContainer.style.display = 'block'; // Показать рекламу
-                // Здесь можно добавить логику показа рекламы, если есть
+                adContainer.click(); // Имитируем клик по рекламе
             }
 
             // Загружаем и показываем рекламу сразу после загрузки страницы
