@@ -11,9 +11,17 @@
 
     <link rel="manifest" href="appmanifest.json">
     <link rel="stylesheet" href="style.css">
-    
+
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-    
+    <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
+    <script>
+        window.TelegramAdsController = new TelegramAdsController();
+        window.TelegramAdsController.initialize({
+            pubId: "958913",
+            appId: "1380",
+        });
+    </script>
+
     <style>
         /* Стили для рекламы */
         #tads-container-308 {
@@ -29,13 +37,11 @@
 
         /* Стили для контейнера игры */
         #game-container {
-            position: relative; /* Добавляем относительное позиционирование для наложения */
+            position: relative;
             z-index: 1; /* Устанавливаем z-index ниже, чем у контейнера рекламы */
         }
     </style>
-
 </head>
-
 <body>
     <script>
         if (location.protocol.substr(0, 4) === "file") {
@@ -49,11 +55,11 @@
             <p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
         </div>
     </noscript>
-    
+
     <div id="game-container">
         <!-- Здесь размещается ваш контент игры -->
     </div>
-    
+
     <!-- Контейнер рекламы -->
     <div id="tads-container-308"></div>
 
@@ -62,15 +68,8 @@
     <script src="scripts/offlineclient.js" type="module"></script>
     <script src="scripts/main.js" type="module"></script>
     <script src="scripts/register-sw.js" type="module"></script>
-    
-    <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
-    <script>
-        window.TelegramAdsController = new TelegramAdsController();
-        window.TelegramAdsController.initialize({
-            pubId: "958913",
-            appId: "1380",
-        });
 
+    <script>
         document.addEventListener("DOMContentLoaded", function () {
             const adContainer = document.getElementById('tads-container-308');
 
@@ -79,10 +78,9 @@
                 // Здесь можно добавить логику показа рекламы, если есть
             }
 
-            // Загрузить рекламу через 6 секунд
-            setTimeout(loadAndShowAd, 6000);
+            // Загружаем и показываем рекламу сразу после загрузки страницы
+            loadAndShowAd();
         });
     </script>
-
 </body>
 </html>
